@@ -1,14 +1,15 @@
 import ScrollProgress from "./scroll-progress";
 import Image from "next/image";
 import DevAuthBanner from "./dev-auth-banner";
+import { InstagramOutlineIcon, FacebookOutlineIcon } from "./social-outline-icons";
 import {
-  BookOpen, Binoculars, Compass, GitBranch,
+  BookOpen, Binoculars, AlertTriangle, Compass, GitBranch,
   Globe, Megaphone,
   ChevronRight, Target, CheckCircle2, Zap,
   CalendarCheck, Shield,
-  ChefHat, GraduationCap, Award,
-  TrendingUp, BarChart3,
-  MessageCircle, Users, Heart,
+  ChefHat, GraduationCap, Award, Building2, UserCircle,
+  Sparkles, Palette, TrendingUp, BarChart3,
+  MessageCircle, Users, Layers, LayoutList, Contact, Link2, Heart,
 } from "lucide-react";
 
 const S = () => <span className="corner-strip" aria-hidden="true" />;
@@ -66,49 +67,30 @@ const CardGrid = ({ cols = 2, dense, children }) => (
   </div>
 );
 
-/** Two-column slide body: content on one side, image on the other.
- *  `reverse` puts the image on the LEFT. Image keeps its exact aspect (no crop). */
-const SlideSplit = ({ reverse, children }) => (
-  <div className={`slide-split${reverse ? " slide-split--reverse" : ""}`}>
-    {children}
-  </div>
-);
-
-const SlideContent = ({ children }) => (
-  <div className="slide-split__content">{children}</div>
-);
-
-const SlideMedia = ({ src, alt, width = 1200, height = 800, priority = false }) => (
-  <figure className="slide-split__media">
-    <Image
-      src={src}
-      alt={alt}
-      width={width}
-      height={height}
-      className="slide-split__image"
-      sizes="(max-width: 900px) 100vw, 42vw"
-      priority={priority}
-    />
+/** Image gallery tile — shows the full image with no cropping (object-fit: contain). */
+const GalleryTile = ({ src, alt, width = 1200, height = 900, caption }) => (
+  <figure className="gallery-tile">
+    <div className="gallery-tile__frame">
+      <Image
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        className="gallery-tile__image"
+        sizes="(max-width: 720px) 100vw, (max-width: 1100px) 50vw, 33vw"
+      />
+    </div>
+    {caption ? <figcaption className="gallery-tile__caption">{caption}</figcaption> : null}
   </figure>
 );
 
-const FeatureList = ({ items, icon: Icon = ChevronRight }) => (
-  <ul className="feature-list">
-    {items.map((item, i) => (
-      <li key={i}>
-        <Icon className="li-icon" aria-hidden="true" />
-        <span>{item}</span>
-      </li>
-    ))}
-  </ul>
-);
-
-const TOTAL_SLIDES = 14;
+const TOTAL_SLIDES = 15;
 
 export default function HomePage() {
   const slides = [
     "Cover",
     "What We Plan",
+    "Reference & Inspiration",
     "Current Situation",
     "Brand & Platform Structure",
     "Brand Positioning Direction",
@@ -160,204 +142,214 @@ export default function HomePage() {
           <S />
           <p className="slide-label">Slide 2 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><Compass />What We Plan</h2>
-          <SlideSplit>
-            <SlideContent>
-              <p>What we want to do here is very simple.</p>
-              <p>Instead of trying to make the academy carry everything on its own, we build Chef Jean Pierre as the main brand people connect with first — then use that trust, attention, and recognition to bring people into the Academy of Culinary Art.</p>
-              <SubHead>Clearer structure</SubHead>
-              <FeatureList
-                icon={ChefHat}
-                items={[
-                  "Chef Jean Pierre becomes the face, voice, and authority people connect with first.",
-                  "The Academy of Culinary Art becomes the place where people take action — programs, enrollment, and growth.",
-                ]}
-              />
-              <Callout icon={Target} label="Direction:">
-                People connect with a person first. Once that connection is built, it becomes much easier to drive interest, trust, and eventually sales into the academy.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/chef-jean-pierre.jpg"
-              alt="Chef Jean Pierre portrait"
-              width={1200}
-              height={1500}
-              priority
-            />
-          </SlideSplit>
+          <p>What we want to do here is very simple.</p>
+          <p>Instead of trying to make the academy carry everything on its own, we build Chef Jean Pierre as the main brand people connect with first. Then, we use that trust, attention, and recognition to bring people into the Academy of Culinary Art.</p>
+          <SubHead>Clearer structure</SubHead>
+          <CardGrid cols={2}>
+            <IconCard icon={ChefHat} title="Chef Jean Pierre" subtitle="Face &amp; authority">
+              <p>Becomes the face, voice, and authority people connect with first.</p>
+            </IconCard>
+            <IconCard icon={GraduationCap} title="Academy of Culinary Art" subtitle="Where action happens">
+              <p>Becomes the place where people take action — programs, enrollment, and growth.</p>
+            </IconCard>
+          </CardGrid>
+          <Callout icon={Target} label="Direction:">
+            This gives the whole brand more direction. People connect with a person first. Once that connection is built, it becomes much easier to drive interest, trust, and eventually sales into the academy.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 3: Current Situation ── */}
+        {/* ── Slide 3: Reference & Inspiration ── */}
         <section className="slide dark slide-footer-brand" id="slide-3">
           <S />
           <p className="slide-label">Slide 3 / {TOTAL_SLIDES}</p>
-          <h2 className="slide-title"><Binoculars />Current Situation</h2>
-          <SlideSplit reverse>
-            <SlideContent>
-              <p>There is already something real behind this brand — we just need to present it better.</p>
-              <SubHead>What we can see</SubHead>
-              <FeatureList
-                icon={CheckCircle2}
-                items={[
-                  "Chef Jean Pierre has genuine credibility and a compelling 50+ year story.",
-                  "The current digital presence lacks structure — the personal side isn\u2019t fully used.",
-                  "Positioning the chef as the central figure strengthens the academy\u2019s foundation.",
-                  "A cohesive narrative elevates the brand to a more premium level.",
-                ]}
-              />
-              <Callout icon={Compass} label="Takeaway:">
-                Lead with real credibility, tighten structure across channels, and make the Academy of Culinary Art feel like the natural next step — not a separate or weaker brand.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/chef-jean-pierre-school.jpg"
-              alt="Chef Jean Pierre in his culinary school"
-              width={1280}
-              height={720}
+          <h2 className="slide-title"><Sparkles />Reference &amp; Inspiration</h2>
+          <p>Here are examples of how a chef&apos;s personal brand can extend far beyond a page — into products, collaborations, and fully branded businesses. These references show the kind of premium, recognizable presence we want Chef Jean Pierre to build toward.</p>
+          <div className="gallery-grid gallery-grid--3">
+            <GalleryTile
+              src="/Gordon-Ramsay-Hard-Seltzers.jpg"
+              alt="Gordon Ramsay Hard Seltzers product line"
+              width={1200}
+              height={800}
+              caption="Brand extension — signature products"
             />
-          </SlideSplit>
+            <GalleryTile
+              src="/PIM_Brands_Welchs_Gordon_Ramsay.jpg"
+              alt="PIM Brands x Welch's x Gordon Ramsay collaboration"
+              width={1200}
+              height={800}
+              caption="Co-branded collaborations"
+            />
+            <GalleryTile
+              src="/Screenshot-2023-07-17-at-11.14.54-AM.jpg"
+              alt="Gordon Ramsay brand presentation"
+              width={1200}
+              height={800}
+              caption="Premium brand presentation"
+            />
+            <GalleryTile
+              src="/1772527239433.png"
+              alt="Chef brand visual"
+              width={1200}
+              height={800}
+              caption="Consistent visual identity"
+            />
+            <GalleryTile
+              src="/images.jpg"
+              alt="Chef brand reference"
+              width={800}
+              height={600}
+              caption="Authority &amp; storytelling"
+            />
+            <GalleryTile
+              src="/images (1).jpg"
+              alt="Chef brand reference"
+              width={800}
+              height={600}
+              caption="Recognizable chef persona"
+            />
+          </div>
+          <Callout icon={Target} label="Why this matters:">
+            These examples show what becomes possible once the personal brand is built properly. Chef Jean Pierre has the same foundation — credibility, presence, and story — we just need the right structure to unlock it.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 4: Brand & Platform Structure ── */}
+        {/* ── Slide 4: Current Situation ── */}
         <section className="slide dark slide-footer-brand" id="slide-4">
           <S />
           <p className="slide-label">Slide 4 / {TOTAL_SLIDES}</p>
-          <h2 className="slide-title"><GitBranch />Brand &amp; Platform Structure</h2>
-          <SlideSplit>
-            <SlideContent>
-              <p>A big part of making this work is giving the brand the right structure from the beginning — two distinct page identities per platform, each with a clear role.</p>
-              <SubHead>Two pages per platform</SubHead>
-              <FeatureList
-                icon={ChevronRight}
-                items={[
-                  "Instagram — Chef Jean Pierre · Academy of Culinary Art by Chef Jean Pierre.",
-                  "Facebook — Chef Jean Pierre · Academy of Culinary Art by Chef Jean Pierre.",
-                ]}
-              />
-              <SubHead>Each page has its own role</SubHead>
-              <FeatureList
-                icon={ChevronRight}
-                items={[
-                  "Chef page — expertise, personality, experience, values, and presence.",
-                  "Academy page — programs, student life, testimonials, training, offers, and inquiries.",
-                ]}
-              />
-              <Callout icon={Target} label="Outcome:">
-                The personal brand creates attention and trust, while the academy turns that attention into business.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/maxresdefault.jpg"
-              alt="Chef Jean Pierre filming on camera"
-              width={1280}
-              height={720}
-            />
-          </SlideSplit>
+          <h2 className="slide-title"><Binoculars />Current Situation</h2>
+          <CardGrid cols={3}>
+            <IconCard icon={Award} title="Chef Jean Pierre&apos;s credibility">
+              <p>Real expertise and a compelling story — a strong foundation in a field full of visual, engaging content opportunities.</p>
+            </IconCard>
+            <IconCard icon={AlertTriangle} title="Current digital presence">
+              <p>Lacks structure and alignment; the personal side is not fully utilized, making a consistent long-term presence harder to build.</p>
+            </IconCard>
+            <IconCard icon={TrendingUp} title="Opportunity for growth">
+              <p>Positioning Chef Jean Pierre as the central figure strengthens the academy&apos;s foundation, creates a cohesive narrative, and elevates the brand to a more premium level.</p>
+            </IconCard>
+          </CardGrid>
+          <Callout icon={Compass} label="Takeaway:">
+            The opportunity is to lead with real credibility, tighten structure across channels, and make the Academy of Culinary Art feel like the natural next step — not a separate or weaker brand.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 5: Brand Positioning Direction ── */}
+        {/* ── Slide 5: Brand & Platform Structure ── */}
         <section className="slide dark slide-footer-brand" id="slide-5">
           <S />
           <p className="slide-label">Slide 5 / {TOTAL_SLIDES}</p>
-          <h2 className="slide-title"><Target />Brand Positioning Direction</h2>
-          <SlideSplit reverse>
-            <SlideContent>
-              <p>Position Chef Jean Pierre and the academy as one connected story — credible, personal, and premium.</p>
-              <SubHead>Three pillars</SubHead>
-              <FeatureList
-                icon={CheckCircle2}
-                items={[
-                  "The chef & mentor — credible, recognizable personality reflecting 50+ years of experience.",
-                  "Academy as extension — a trusted place backed by someone people already know and respect.",
-                  "Premium feel — visuals, logo, and tone that read warm, confident, professional, and personal.",
-                ]}
-              />
-              <Callout icon={Target} label="Positioning:">
-                When the chef and the academy read as one story, audiences understand why the Academy of Culinary Art is the right place to train and grow.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/hq720.jpg"
-              alt="Chef Jean Pierre teaching"
-              width={1280}
-              height={720}
-            />
-          </SlideSplit>
+          <h2 className="slide-title"><GitBranch />Brand &amp; Platform Structure</h2>
+          <p>A big part of making this work is giving the brand the right structure from the beginning.</p>
+          <SubHead>Two page identities per platform</SubHead>
+          <CardGrid cols={2}>
+            <IconCard icon={InstagramOutlineIcon} title="Instagram">
+              <p><strong>Chef Jean Pierre</strong> · <strong>Academy of Culinary Art by Chef Jean Pierre</strong></p>
+            </IconCard>
+            <IconCard icon={FacebookOutlineIcon} title="Facebook">
+              <p><strong>Chef Jean Pierre</strong> · <strong>Academy of Culinary Art by Chef Jean Pierre</strong></p>
+            </IconCard>
+          </CardGrid>
+          <SubHead>Each page has its own role</SubHead>
+          <CardGrid cols={2}>
+            <IconCard icon={UserCircle} title="Chef Jean Pierre page">
+              <p>Expertise, personality, experience, values, and presence — the person.</p>
+            </IconCard>
+            <IconCard icon={Building2} title="Academy page">
+              <p>Programs, student life, testimonials, training, offers, and inquiries.</p>
+            </IconCard>
+          </CardGrid>
+          <Callout icon={Target} label="Outcome:">
+            The personal brand creates attention and trust, while the academy turns that attention into business.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 6: Meta-Focused Approach ── */}
+        {/* ── Slide 6: Brand Positioning Direction ── */}
         <section className="slide dark slide-footer-brand" id="slide-6">
           <S />
           <p className="slide-label">Slide 6 / {TOTAL_SLIDES}</p>
-          <h2 className="slide-title"><Globe />Meta-Focused Approach</h2>
-          <SlideSplit>
-            <SlideContent>
-              <p>The focus stays on Instagram and Facebook — where the brand has the best immediate opportunity to grow in the right way.</p>
-              <SubHead>Why Meta first</SubHead>
-              <FeatureList
-                icon={ChevronRight}
-                items={[
-                  "Instagram — visibility, reach, storytelling, and a strong chef-led content presence.",
-                  "Facebook — credibility, wider audience access, local trust, and conversion support.",
-                  "Together they cover discovery, trust-building, and conversion in one ecosystem.",
-                ]}
-              />
-              <Callout icon={Target} label="Focus:">
-                The goal is not to spread the brand too wide. Make these two platforms work properly first, with clarity and consistency, before expanding anywhere else.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/Must-Have-Kitchen-Tools-_-Chef-Jean-Pierre.jpg"
-              alt="Chef Jean Pierre with kitchen tools"
-              width={1280}
-              height={720}
-            />
-          </SlideSplit>
+          <h2 className="slide-title"><Target />Brand Positioning Direction</h2>
+          <CardGrid cols={3}>
+            <IconCard icon={ChefHat} title="The chef &amp; mentor">
+              <p>Credible chef, mentor, and recognizable personality — reflecting 50+ years of experience.</p>
+            </IconCard>
+            <IconCard icon={Link2} title="Academy as extension">
+              <p>Not just another school: a trusted place backed by someone people already know and respect.</p>
+            </IconCard>
+            <IconCard icon={Sparkles} title="Premium feel">
+              <p>Visual identity, logo, and presentation align with Chef Jean Pierre&apos;s persona: premium, warm, confident, professional, and personal.</p>
+            </IconCard>
+          </CardGrid>
+          <Callout icon={Target} label="Positioning:">
+            When the chef and the academy read as one story — credible, personal, and premium — audiences understand why the Academy of Culinary Art is the right place to train and grow.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 7: Phase 1: Foundation (Month 1) ── */}
+        {/* ── Slide 7: Meta-Focused Approach ── */}
         <section className="slide dark slide-footer-brand" id="slide-7">
           <S />
           <p className="slide-label">Slide 7 / {TOTAL_SLIDES}</p>
-          <h2 className="slide-title"><CalendarCheck />Phase 1: Foundation (Month 1)</h2>
-          <SlideSplit reverse>
-            <SlideContent>
-              <p>The first month is about setting the right base — clean structure, aligned branding, and clearly defined page directions before growth.</p>
-              <SubHead>This phase focuses on</SubHead>
-              <FeatureList
-                icon={CheckCircle2}
-                items={[
-                  "Set up or refine Chef Jean Pierre pages properly.",
-                  "Align academy pages with the new direction.",
-                  "Improve branding and logo direction where needed.",
-                  "Refine bios, images, descriptions, and highlights.",
-                  "Remove confusion between the two identities.",
-                  "Define what each page talks about and how it should feel.",
-                  "Build a stronger, more intentional visual direction.",
-                ]}
-              />
-              <Callout icon={CheckCircle2} label="Summary:">
-                This month is really about preparing the brand properly — so everything we build on top has a stable, premium foundation.
-              </Callout>
-            </SlideContent>
-            <SlideMedia
-              src="/chef-jean-pierre-is-easily.jpg"
-              alt="Chef Jean Pierre smiling in kitchen"
-              width={1280}
-              height={720}
-            />
-          </SlideSplit>
+          <h2 className="slide-title"><Globe />Meta-Focused Approach</h2>
+          <p>For now, the focus should stay on Instagram and Facebook — where the brand has the best immediate opportunity to grow in the right way.</p>
+          <CardGrid cols={2}>
+            <IconCard icon={InstagramOutlineIcon} title="Instagram">
+              <p>Visibility, reach, storytelling, and a strong chef-led content presence.</p>
+            </IconCard>
+            <IconCard icon={FacebookOutlineIcon} title="Facebook">
+              <p>Credibility, wider audience access, local trust, and conversion support.</p>
+            </IconCard>
+          </CardGrid>
+          <SubHead>At this stage, the goal is not to spread the brand too wide.</SubHead>
+          <Callout icon={Target} label="Focus:">
+            The goal is to make these two platforms work properly first, with clarity and consistency.
+          </Callout>
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 8: Phase 2: Organic Growth (Months 2–3) ── */}
+        {/* ── Slide 8: Phase 1: Foundation (Month 1) ── */}
         <section className="slide dark slide-footer-brand" id="slide-8">
           <S />
           <p className="slide-label">Slide 8 / {TOTAL_SLIDES}</p>
+          <h2 className="slide-title"><CalendarCheck />Phase 1: Foundation (Month 1)</h2>
+          <p>The first month is about setting the right base — clean structure, aligned branding, and clearly defined page directions before growth.</p>
+          <SubHead>This phase focuses on</SubHead>
+          <CardGrid dense>
+            <IconCard icon={LayoutList} title="Pages" compact>
+              <p>Set up or refine Chef Jean Pierre pages properly.</p>
+            </IconCard>
+            <IconCard icon={GitBranch} title="Academy alignment" compact>
+              <p>Align academy pages with the new direction.</p>
+            </IconCard>
+            <IconCard icon={Palette} title="Branding &amp; logo" compact>
+              <p>Improve branding and logo direction where needed.</p>
+            </IconCard>
+            <IconCard icon={Contact} title="Profiles" compact>
+              <p>Refine bios, images, descriptions, highlights, and presentation.</p>
+            </IconCard>
+            <IconCard icon={Layers} title="Clarity" compact>
+              <p>Remove confusion between the two identities.</p>
+            </IconCard>
+            <IconCard icon={MessageCircle} title="Voice &amp; feel" compact>
+              <p>Define what each page talks about and how it should feel.</p>
+            </IconCard>
+            <IconCard icon={Sparkles} title="Visual direction" compact>
+              <p>Stronger, more intentional visuals across both brands.</p>
+            </IconCard>
+          </CardGrid>
+          <Callout icon={CheckCircle2} label="Summary:">
+            This month is really about preparing the brand properly.
+          </Callout>
+          <TwistSlideFooter />
+        </section>
+
+        {/* ── Slide 9: Phase 2: Organic Growth (Months 2–3) ── */}
+        <section className="slide dark slide-footer-brand" id="slide-9">
+          <S />
+          <p className="slide-label">Slide 9 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><CalendarCheck />Phase 2: Organic Growth (Months 2–3)</h2>
           <p>Once the foundation is in place, grow organically. For 2–3 months, build Chef Jean Pierre as the personality people notice, remember, and trust — through content, consistency, and presence.</p>
           <CardGrid cols={2}>
@@ -374,10 +366,10 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 9: Content Strategy ── */}
-        <section className="slide dark slide-footer-brand" id="slide-9">
+        {/* ── Slide 10: Content Strategy ── */}
+        <section className="slide dark slide-footer-brand" id="slide-10">
           <S />
-          <p className="slide-label">Slide 9 / {TOTAL_SLIDES}</p>
+          <p className="slide-label">Slide 10 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><BookOpen />Content Strategy</h2>
           <p>Both pages should feel connected, but each has a distinct purpose: one builds connection; the other supports conversion.</p>
           <div className="support-grid">
@@ -406,10 +398,10 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 10: Credibility Strategy ── */}
-        <section className="slide dark slide-footer-brand" id="slide-10">
+        {/* ── Slide 11: Credibility Strategy ── */}
+        <section className="slide dark slide-footer-brand" id="slide-11">
           <S />
-          <p className="slide-label">Slide 10 / {TOTAL_SLIDES}</p>
+          <p className="slide-label">Slide 11 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><Shield />Credibility Strategy</h2>
           <CardGrid cols={2}>
             <IconCard icon={Award} title="Already real">
@@ -425,10 +417,10 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 11: Phase 3: Paid Media (After Month 3) ── */}
-        <section className="slide dark slide-footer-brand" id="slide-11">
+        {/* ── Slide 12: Phase 3: Paid Media (After Month 3) ── */}
+        <section className="slide dark slide-footer-brand" id="slide-12">
           <S />
-          <p className="slide-label">Slide 11 / {TOTAL_SLIDES}</p>
+          <p className="slide-label">Slide 12 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><Megaphone />Phase 3: Paid Media (After Month 3)</h2>
           <div className="strategy-grid strategy-grid--3col">
             <div className="strategy-item">
@@ -459,10 +451,10 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 12: 3 Months Plan ── */}
-        <section className="slide dark slide-footer-brand" id="slide-12">
+        {/* ── Slide 13: 3 Months Plan ── */}
+        <section className="slide dark slide-footer-brand" id="slide-13">
           <S />
-          <p className="slide-label">Slide 12 / {TOTAL_SLIDES}</p>
+          <p className="slide-label">Slide 13 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><CalendarCheck />3 Months Plan</h2>
           <p>Treat the initial phase as proper setup and growth: shape the brand, set content direction, and prepare both pages to work together.</p>
           <CardGrid cols={3}>
@@ -482,10 +474,10 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 13: Review & Scaling ── */}
-        <section className="slide dark slide-footer-brand" id="slide-13">
+        {/* ── Slide 14: Review & Scaling ── */}
+        <section className="slide dark slide-footer-brand" id="slide-14">
           <S />
-          <p className="slide-label">Slide 13 / {TOTAL_SLIDES}</p>
+          <p className="slide-label">Slide 14 / {TOTAL_SLIDES}</p>
           <h2 className="slide-title"><Binoculars />Review &amp; Scaling</h2>
           <p>After the first 3 months, review performance and where the strongest traction comes from.</p>
           <SubHead>We look at</SubHead>
@@ -512,8 +504,8 @@ export default function HomePage() {
           <TwistSlideFooter />
         </section>
 
-        {/* ── Slide 14: Thank You ── */}
-        <section className="slide thankyou dark no-corner" id="slide-14">
+        {/* ── Slide 15: Thank You ── */}
+        <section className="slide thankyou dark no-corner" id="slide-15">
           <div className="cover-bg-shape" aria-hidden="true" />
           <div className="cover-bg-shape cover-bg-shape--2" aria-hidden="true" />
           <div className="cover-bg-shape cover-bg-shape--3" aria-hidden="true" />
