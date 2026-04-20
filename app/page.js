@@ -92,7 +92,7 @@ export default function HomePage() {
       <ScrollProgress />
       <header className="topbar">
         <div className="topbar-left">
-          <Image src="/c.png" alt="Chef Jean Pierre Catering & School" width={120} height={40} className="topbar-logo" priority />
+          <Image src="/n.jpg" alt="Chef Jean Pierre Catering & School" width={120} height={40} className="topbar-logo" priority />
         </div>
         <nav className="slide-nav" aria-label="Slide navigation">
           {slides.map((label, idx) => (
