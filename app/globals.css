@@ -1411,6 +1411,116 @@ ul ul {
   }
 }
 
+/* ── Split layout: content on one side, image on the other ── */
+.slide-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3.2vw, 3rem);
+  align-items: center;
+  width: 100%;
+  margin: 0.35rem 0 0.5rem;
+  flex: 1 1 auto;
+}
+
+.slide-split--reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr);
+}
+
+.slide-split--reverse .slide-split__media {
+  order: -1;
+}
+
+.slide-split__content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slide-split__content > p {
+  margin: 0;
+}
+
+.slide-split__content .sub-head {
+  margin-top: 0.35rem;
+  margin-bottom: 0.15rem;
+}
+
+.slide-split__content .callout {
+  margin-top: 0.55rem;
+  max-width: none;
+}
+
+.slide-split__media {
+  margin: 0;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(231, 41, 75, 0.07) 100%
+  );
+  border: 1px solid rgba(231, 41, 75, 0.22);
+  border-radius: 22px;
+  box-shadow:
+    0 14px 44px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.slide-split__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 64vh;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+/* Feature list used inside split-layout content */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: clamp(0.92rem, 1.05vw, 1.02rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.feature-list .li-icon {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.22rem;
+  color: var(--accent, #e7294b);
+  stroke-width: 2;
+}
+
+@media (max-width: 900px) {
+  .slide-split,
+  .slide-split--reverse {
+    grid-template-columns: 1fr;
+    gap: 1.4rem;
+  }
+  .slide-split--reverse .slide-split__media {
+    order: 0;
+  }
+  .slide-split__image {
+    max-height: 46vh;
+  }
+}
+
 /* ── Icon cards & card grids (proposal deck) ── */
 .card-grid {
   display: grid;
