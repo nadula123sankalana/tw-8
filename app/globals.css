@@ -180,6 +180,11 @@ body {
   padding-bottom: clamp(4rem, 10vw, 6rem);
 }
 
+/* Full-viewport slides: center content vertically so space isn’t all at the bottom */
+.slide.slide-footer-brand {
+  justify-content: center;
+}
+
 .slide-brand-footer {
   position: absolute;
   bottom: max(clamp(1rem, 3vw, 1.75rem), env(safe-area-inset-bottom));
@@ -683,9 +688,15 @@ ul ul {
 }
 
 .dark .callout {
-  background: rgba(231, 41, 75, 0.08);
-  border-left-color: var(--accent);
-  border-left-width: 4px;
+  background: linear-gradient(
+    135deg,
+    rgba(26, 14, 22, 0.92) 0%,
+    rgba(18, 16, 32, 0.88) 100%
+  );
+  border: 1px solid rgba(231, 41, 75, 0.22);
+  border-left: 4px solid var(--accent);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
 }
 
 .dark .callout strong {
@@ -1398,6 +1409,264 @@ ul ul {
   .steps-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* ── Icon cards & card grids (proposal deck) ── */
+.card-grid {
+  display: grid;
+  gap: 1.15rem;
+  margin: 0.65rem 0 1rem;
+  width: 100%;
+  max-width: none;
+  align-self: stretch;
+  align-items: stretch;
+}
+
+.card-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card-grid--dense {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 0.95rem;
+}
+
+@media (max-width: 720px) {
+  .card-grid--2,
+  .card-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.icon-card {
+  background: rgba(17, 18, 35, 0.62);
+  border: 1px solid rgba(231, 41, 75, 0.25);
+  border-radius: 18px;
+  padding: 1.35rem 1.4rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  height: 100%;
+  min-height: 6.5rem;
+  box-sizing: border-box;
+  justify-content: flex-start;
+}
+
+.icon-card--compact {
+  padding: 1.05rem 1.15rem 1.1rem;
+  min-height: 5.25rem;
+}
+
+.icon-card__head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.icon-card__icon-wrap {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(231, 41, 75, 0.14);
+  border: 1px solid rgba(231, 41, 75, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-card--compact .icon-card__icon-wrap {
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+}
+
+.icon-card__icon {
+  width: 26px;
+  height: 26px;
+  color: var(--accent);
+  stroke-width: 2;
+}
+
+.icon-card--compact .icon-card__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.icon-card__head-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.icon-card__title {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 1.12rem;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #fbfcfc;
+  letter-spacing: -0.01em;
+}
+
+.icon-card__subtitle {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(231, 41, 75, 0.95);
+}
+
+.icon-card__body {
+  font-size: 0.98rem;
+  line-height: 1.62;
+  color: rgba(251, 252, 252, 0.88);
+  margin: 0;
+}
+
+.icon-card__body p {
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  max-width: none;
+}
+
+.support-heading svg,
+.col-heading svg {
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+
+.support-col--icon-top .support-heading {
+  margin-bottom: 0.65rem;
+}
+
+/* Deck slides: use full content width (no narrow column on the right) */
+main.deck .slide.dark:not(.cover):not(.thankyou) {
+  align-items: stretch;
+}
+
+main.deck .slide.dark:not(.cover):not(.thankyou) > p,
+main.deck .slide.dark:not(.cover):not(.thankyou) > .sub-head {
+  max-width: 100%;
+  width: 100%;
+}
+
+main.deck .slide .callout {
+  max-width: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+main.deck .strategy-grid,
+main.deck .support-grid {
+  width: 100%;
+  max-width: none;
+}
+
+main.deck .strategy-item {
+  padding: 1.45rem 1.5rem;
+  min-height: 0;
+}
+
+main.deck .strategy-item p {
+  font-size: 0.95rem;
+  line-height: 1.62;
+  color: rgba(251, 252, 252, 0.85);
+  margin: 0;
+}
+
+main.deck .strategy-item h3 {
+  font-size: 1.05rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+main.deck .support-col {
+  padding: 1.5rem 1.55rem;
+}
+
+/* Taller cards on 2/3 column grids to use vertical space */
+main.deck .card-grid--3 .icon-card:not(.icon-card--compact) {
+  min-height: clamp(13rem, 30vh, 22rem);
+}
+
+main.deck .card-grid--2 .icon-card:not(.icon-card--compact) {
+  min-height: clamp(12rem, 26vh, 20rem);
+}
+
+@media (max-width: 720px) {
+  main.deck .card-grid--3 .icon-card:not(.icon-card--compact),
+  main.deck .card-grid--2 .icon-card:not(.icon-card--compact) {
+    min-height: 6.5rem;
+  }
+}
+
+/* Deck: slightly smaller type for readability */
+main.deck .slide-title {
+  font-size: clamp(1.35rem, 4.2vw + 0.4rem, 2.85rem);
+  margin-bottom: 1.15rem;
+}
+
+main.deck .slide-title svg {
+  width: clamp(1.35rem, 3vw, 2.35rem);
+  height: clamp(1.35rem, 3vw, 2.35rem);
+}
+
+main.deck.dark p,
+main.deck .dark p {
+  font-size: clamp(0.88rem, 2vw + 0.25rem, 1.12rem);
+}
+
+main.deck.dark li,
+main.deck .dark li {
+  font-size: clamp(0.78rem, 1.7vw + 0.2rem, 0.98rem);
+}
+
+main.deck .sub-head {
+  font-size: clamp(0.92rem, 1.1vw, 1.05rem);
+  margin: 0.85rem 0 0.45rem;
+}
+
+main.deck .callout-body {
+  font-size: clamp(0.88rem, 1.1vw, 1.02rem);
+  line-height: 1.6;
+}
+
+main.deck .slide .callout {
+  padding: 1.15rem 1.35rem;
+}
+
+main.deck .slide.cover h1 {
+  font-size: clamp(1.25rem, 5vw + 0.2rem, 3.2rem);
+}
+
+main.deck .slide.cover h2 {
+  font-size: clamp(0.95rem, 1.8vw, 1.45rem);
+}
+
+main.deck .thankyou-heading {
+  font-size: clamp(2.25rem, 8vw, 5rem);
+}
+
+main.deck .thankyou-sub {
+  font-size: clamp(0.88rem, 1.1vw, 1.05rem);
+}
+
+main.deck .thankyou-contact {
+  font-size: 0.88rem;
+}
+
+main.deck .strategy-item .strategy-head-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--accent);
+  flex-shrink: 0;
 }
 
 /* ── Strategy 3-column override ── */
