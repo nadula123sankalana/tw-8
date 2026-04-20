@@ -1,12 +1,12 @@
 import ScrollProgress from "./scroll-progress";
 import Image from "next/image";
 import DevAuthBanner from "./dev-auth-banner";
+import { InstagramOutlineIcon, FacebookOutlineIcon } from "./social-outline-icons";
 import {
   BookOpen, Binoculars, AlertTriangle, Compass, GitBranch,
   Globe, Megaphone,
   ChevronRight, Target, CheckCircle2, Zap,
   CalendarCheck, Shield,
-  Camera, Share2,
   ChefHat, GraduationCap, Award, Building2, UserCircle,
   Sparkles, Palette, TrendingUp, BarChart3,
   MessageCircle, Users, Layers, LayoutList, Contact, Link2, Heart,
@@ -171,10 +171,10 @@ export default function HomePage() {
           <p>A big part of making this work is giving the brand the right structure from the beginning.</p>
           <SubHead>Two page identities per platform</SubHead>
           <CardGrid cols={2}>
-            <IconCard icon={Camera} title="Instagram">
+            <IconCard icon={InstagramOutlineIcon} title="Instagram">
               <p><strong>Chef Jean Pierre</strong> · <strong>Academy of Culinary Art by Chef Jean Pierre</strong></p>
             </IconCard>
-            <IconCard icon={Share2} title="Facebook">
+            <IconCard icon={FacebookOutlineIcon} title="Facebook">
               <p><strong>Chef Jean Pierre</strong> · <strong>Academy of Culinary Art by Chef Jean Pierre</strong></p>
             </IconCard>
           </CardGrid>
@@ -222,10 +222,10 @@ export default function HomePage() {
           <h2 className="slide-title"><Globe />Meta-Focused Approach</h2>
           <p>For now, the focus should stay on Instagram and Facebook — where the brand has the best immediate opportunity to grow in the right way.</p>
           <CardGrid cols={2}>
-            <IconCard icon={Camera} title="Instagram">
+            <IconCard icon={InstagramOutlineIcon} title="Instagram">
               <p>Visibility, reach, storytelling, and a strong chef-led content presence.</p>
             </IconCard>
-            <IconCard icon={Share2} title="Facebook">
+            <IconCard icon={FacebookOutlineIcon} title="Facebook">
               <p>Credibility, wider audience access, local trust, and conversion support.</p>
             </IconCard>
           </CardGrid>
